@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<info xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+	<id>paperlessforwarder</id>
+	<name>Paperless Forwarder</name>
+	<summary>Forward files from a Nextcloud folder to Paperless-ngx</summary>
+	<description>Uploads settled files to Paperless-ngx and trashes confirmed duplicates.</description>
+	<version>1.0.0</version>
+	<licence>AGPL-3.0-or-later</licence>
+	<author mail="vincent@mahn.ke" homepage="https://by.vincent.mahn.ke/">Vincent Mahnke</author>
+	<namespace>PaperlessForwarder</namespace>
+	<category>files</category>
+	<background-jobs>
+		<job>OCA\PaperlessForwarder\Jobs\ProcessJob</job>
+		<job>OCA\PaperlessForwarder\Jobs\SweepJob</job>
+	</background-jobs>
+	<commands>
+		<command>OCA\PaperlessForwarder\Command\StatusCommand</command>
+		<command>OCA\PaperlessForwarder\Command\SweepCommand</command>
+		<command>OCA\PaperlessForwarder\Command\ProcessCommand</command>
+		<command>OCA\PaperlessForwarder\Command\RetryCommand</command>
+		<command>OCA\PaperlessForwarder\Command\ResumeCommand</command>
+	</commands>
+	<dependencies>
+		<nextcloud min-version="35" max-version="35"/>
+	</dependencies>
+</info>

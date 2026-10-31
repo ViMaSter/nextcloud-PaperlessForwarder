@@ -1,0 +1,33 @@
+{
+  "name": "vimaster/nextcloud-paperlessforwarder",
+  "description": "Forward files from a Nextcloud folder to Paperless-ngx",
+  "license": "AGPL-3.0-or-later",
+  "type": "project",
+  "autoload": {
+    "psr-4": {
+      "OCA\\PaperlessForwarder\\": "lib/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "OCP\\": "vendor/nextcloud/ocp/OCP/"
+    }
+  },
+  "require": {
+    "php": "^8.3"
+  },
+  "require-dev": {
+    "nextcloud/ocp": "dev-stable35",
+    "phpunit/phpunit": "^10.5"
+  },
+  "config": {
+    "platform": {
+      "php": "8.3"
+    },
+    "sort-packages": true
+  },
+  "scripts": {
+    "lint": "find lib tests -name '*.php' -print0 | xargs -0 -n1 php -l",
+    "test": "phpunit -c tests/phpunit.xml"
+  }
+}
