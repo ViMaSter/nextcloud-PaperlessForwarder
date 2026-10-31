@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace OCA\PaperlessForwarder\Service;
 
-use OCP\DB\IConnection;
 use OCP\Files\File;
+use OCP\IDBConnection;
 
 class StateStore {
-	public function __construct(private IConnection $db) {
+	public function __construct(private IDBConnection $db) {
 	}
 
 	public function queue(File $file, string $ownerId, string $path): void {

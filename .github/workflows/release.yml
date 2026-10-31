@@ -29,6 +29,8 @@ jobs:
       - run: composer install --no-interaction --prefer-dist
       - run: composer lint
       - run: composer test
+      - name: End-to-end test against Nextcloud 35
+        run: tests/e2e/run.sh
       - run: npm run package -- "v$(node -p 'JSON.parse(require("fs").readFileSync("package.json")).version')"
       - uses: docker/setup-qemu-action@v3
       - uses: docker/setup-buildx-action@v3

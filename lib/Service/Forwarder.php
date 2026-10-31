@@ -181,7 +181,9 @@ final class Forwarder {
 		$userId = (string)$row['owner_id'];
 		$userFolder = $this->rootFolder->getUserFolder($userId);
 		$relativePath = $userFolder->getRelativePath($file->getPath());
-		if (!$this->appManager->isEnabledForUser('files_trashbin', $userId)
+		$user = $this->userManager->get($userId);
+		if ($user === null
+			|| !$this->appManager->isEnabledForUser('files_trashbin', $user)
 			|| !is_string($relativePath)
 			|| !$this->filter->eligible($file, $relativePath)
 			|| $file->getEtag() !== (string)$row['etag']

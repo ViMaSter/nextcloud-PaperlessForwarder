@@ -213,9 +213,10 @@ final class ForwarderTest extends TestCase {
 		$rootFolder->method('getUserFolder')->with('forwarder-user')->willReturn($userFolder);
 
 		$userManager = $this->createMock(IUserManager::class);
-		$userManager->method('get')->with('forwarder-user')->willReturn($this->createMock(IUser::class));
+		$user = $this->createMock(IUser::class);
+		$userManager->method('get')->with('forwarder-user')->willReturn($user);
 		$appManager = $this->createMock(IAppManager::class);
-		$appManager->method('isEnabledForUser')->with('files_trashbin', 'forwarder-user')->willReturn($trashbinEnabled);
+		$appManager->method('isEnabledForUser')->with('files_trashbin', $user)->willReturn($trashbinEnabled);
 
 		$forwarder = new Forwarder(
 			$config,
