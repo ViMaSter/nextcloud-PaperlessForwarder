@@ -80,6 +80,12 @@ code=$(curl -s -o /dev/null -w '%{http_code}' "${auth[@]}" -X PUT --data-binary 
 [ "$code" = 201 ] || fail "upload outside the forwarded folder returned $code"
 rm -f "$pdf"
 
+status=$(occ paperlessforwarder:status)
+printf '%s\n' "$status" | grep -Fq '/Paperless/e2e.pdf' || {
+	printf '%s\n' "$status"
+	fail "Nextcloud file event did not queue the eligible file"
+}
+
 output=$(docker exec -u www-data "$nextcloud" php -f /var/www/html/cron.php 2>&1) || fail "cron.php failed: $output"
 
 for _ in $(seq 1 30); do

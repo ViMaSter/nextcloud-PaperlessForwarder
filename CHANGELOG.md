@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.3
+
+- Register the Nextcloud bootstrap class so file events enqueue eligible uploads.
+- Assert event-driven queueing in the Nextcloud 35 end-to-end test.
+
 ## 1.0.2
 
 - Fix Nextcloud 35 dependency injection (`IDBConnection`, `ITimeFactory`) that made WebDAV uploads fail with HTTP 500.
