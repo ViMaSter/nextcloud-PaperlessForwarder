@@ -6,7 +6,7 @@ namespace OCA\PaperlessForwarder\Service;
 
 use OCP\IConfig;
 
-final class BreakerState {
+class BreakerState {
 	public function __construct(private IConfig $config) {
 	}
 

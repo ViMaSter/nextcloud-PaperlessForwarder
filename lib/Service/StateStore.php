@@ -7,7 +7,7 @@ namespace OCA\PaperlessForwarder\Service;
 use OCP\DB\IConnection;
 use OCP\Files\File;
 
-final class StateStore {
+class StateStore {
 	public function __construct(private IConnection $db) {
 	}
 

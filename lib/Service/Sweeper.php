@@ -7,7 +7,7 @@ namespace OCA\PaperlessForwarder\Service;
 use OCP\Files\File;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
-use OCP\ILogger;
+use Psr\Log\LoggerInterface;
 
 final class Sweeper {
 	public function __construct(
@@ -15,7 +15,7 @@ final class Sweeper {
 		private PathFilter $filter,
 		private StateStore $store,
 		private IRootFolder $rootFolder,
-		private ILogger $logger,
+		private LoggerInterface $logger,
 	) {
 	}
 

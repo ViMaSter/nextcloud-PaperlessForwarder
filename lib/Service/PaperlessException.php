@@ -8,6 +8,3 @@ use RuntimeException;
 
 class PaperlessException extends RuntimeException {
 }
-
-final class UploadRejected extends PaperlessException {
-}

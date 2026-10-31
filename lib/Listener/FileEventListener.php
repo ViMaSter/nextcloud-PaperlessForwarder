@@ -13,7 +13,7 @@ use OCP\Files\Events\Node\AbstractNodeEvent;
 use OCP\Files\Events\Node\AbstractNodesEvent;
 use OCP\Files\File;
 use OCP\Files\IRootFolder;
-use OCP\ILogger;
+use Psr\Log\LoggerInterface;
 
 /** @template-implements IEventListener<AbstractNodeEvent|AbstractNodesEvent> */
 final class FileEventListener implements IEventListener {
@@ -22,7 +22,7 @@ final class FileEventListener implements IEventListener {
 		private PathFilter $filter,
 		private StateStore $store,
 		private IRootFolder $rootFolder,
-		private ILogger $logger,
+		private LoggerInterface $logger,
 	) {
 	}
 

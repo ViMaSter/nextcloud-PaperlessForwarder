@@ -9,7 +9,7 @@ use OCP\Files\File;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
 use OCP\IUserManager;
-use OCP\ILogger;
+use Psr\Log\LoggerInterface;
 
 final class Forwarder {
 	public function __construct(
@@ -22,7 +22,7 @@ final class Forwarder {
 		private IRootFolder $rootFolder,
 		private IUserManager $userManager,
 		private IAppManager $appManager,
-		private ILogger $logger,
+		private LoggerInterface $logger,
 	) {
 	}
 

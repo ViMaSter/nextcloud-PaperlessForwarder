@@ -7,7 +7,7 @@ namespace OCA\PaperlessForwarder\Service;
 use OCP\Http\Client\IClientService;
 use OCP\Files\File;
 
-final class PaperlessClient {
+class PaperlessClient {
 	public function __construct(private IClientService $clients, private ForwarderConfig $config) {
 	}
 
