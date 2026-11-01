@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.5
+
+- Use the logical Nextcloud file size for streamed multipart uploads, fixing cURL read errors with encrypted files.
+- Cover inflated storage stream sizes and verify large-file upload lengths and checksums.
+
 ## 1.0.4
 
 - Preserve scheduled forwarder job timestamps when the app bootstraps.

@@ -12,6 +12,8 @@ A headless Nextcloud 35 app that forwards settled files from one configured user
 
 Files must be owned by the configured user and under the configured path, be unchanged for at least two minutes, non-empty, and at most 256 MiB. Hidden and temporary files are skipped. Before trashing, the app verifies the original etag and size and requires `files_trashbin` to be enabled.
 
+Uploads remain streamed, with multipart lengths based on the logical Nextcloud file size rather than the larger on-disk size reported by encrypted storage streams.
+
 ## Configuration
 
 Set these variables on the Nextcloud app and cron services (the API token is only needed by cron):

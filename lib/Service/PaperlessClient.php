@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OCA\PaperlessForwarder\Service;
 
+use GuzzleHttp\Psr7\Utils;
 use OCP\Http\Client\IClientService;
 use OCP\Files\File;
 
@@ -14,13 +15,17 @@ class PaperlessClient {
 	public function upload(File $file): string {
 		$client = $this->clients->newClient();
 		$stream = $file->fopen('r');
+		if (!is_resource($stream)) {
+			throw new PaperlessException('Nextcloud source could not be opened for reading');
+		}
 		try {
 			$response = $client->post($this->endpoint('/api/documents/post_document/'), [
 				'http_errors' => false,
 				'headers' => $this->headers(),
 				'multipart' => [[
 					'name' => 'document',
-					'contents' => $stream,
+					// Encrypted storage streams can report their larger on-disk size.
+					'contents' => Utils::streamFor($stream, ['size' => (int)$file->getSize()]),
 					'filename' => $file->getName(),
 				]],
 			]);
