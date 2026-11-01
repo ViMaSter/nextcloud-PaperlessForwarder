@@ -106,16 +106,16 @@ printf '%s' "$trash" | grep -q 'e2e.pdf' || fail "trashed source is not in the N
 code=$(curl -s -o /dev/null -w '%{http_code}' "${auth[@]}" -X PROPFIND -H 'Depth: 0' "$dav/outside.pdf")
 [ "$code" = 207 ] || fail "file outside the forwarded folder was touched ($code)"
 
-process_job_id=$(occ background-job:list | awk -F'|' '/ProcessJob/ { gsub(/[[:space:]]/, "", $2); print $2; exit }')
-sweep_job_id=$(occ background-job:list | awk -F'|' '/SweepJob/ { gsub(/[[:space:]]/, "", $2); print $2; exit }')
+process_job_id=$(occ background-job:list | awk -F'|' '/ProcessJob/ { gsub(/[[:space:]]/, "", $2); id = $2 } END { print id }')
+sweep_job_id=$(occ background-job:list | awk -F'|' '/SweepJob/ { gsub(/[[:space:]]/, "", $2); id = $2 } END { print id }')
 [ -n "$process_job_id" ] || fail "process background job is not registered"
 [ -n "$sweep_job_id" ] || fail "sweep background job is not registered"
 occ background-job:execute --force-execute "$process_job_id" >/dev/null
 occ background-job:execute --force-execute "$sweep_job_id" >/dev/null
 occ paperlessforwarder:status >/dev/null
 jobs=$(occ background-job:list)
-process_last_run=$(printf '%s\n' "$jobs" | awk -F'|' '/ProcessJob/ { gsub(/^[[:space:]]+|[[:space:]]+$/, "", $4); print $4; exit }')
-sweep_last_run=$(printf '%s\n' "$jobs" | awk -F'|' '/SweepJob/ { gsub(/^[[:space:]]+|[[:space:]]+$/, "", $4); print $4; exit }')
+process_last_run=$(printf '%s\n' "$jobs" | awk -F'|' '/ProcessJob/ { gsub(/^[[:space:]]+|[[:space:]]+$/, "", $4); last_run = $4 } END { print last_run }')
+sweep_last_run=$(printf '%s\n' "$jobs" | awk -F'|' '/SweepJob/ { gsub(/^[[:space:]]+|[[:space:]]+$/, "", $4); last_run = $4 } END { print last_run }')
 [ "$process_last_run" != "1970-01-01T00:00:00+00:00" ] || fail "app bootstrap reset the process job run time"
 [ "$sweep_last_run" != "1970-01-01T00:00:00+00:00" ] || fail "app bootstrap reset the sweep job run time"
 
