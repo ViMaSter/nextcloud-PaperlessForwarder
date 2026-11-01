@@ -32,7 +32,11 @@ class Application extends App implements IBootstrap {
 
 	public function boot(IBootContext $context): void {
 		$jobs = $context->getAppContainer()->get(IJobList::class);
-		$jobs->add(ProcessJob::class);
-		$jobs->add(SweepJob::class);
+		if (!$jobs->has(ProcessJob::class, null)) {
+			$jobs->add(ProcessJob::class);
+		}
+		if (!$jobs->has(SweepJob::class, null)) {
+			$jobs->add(SweepJob::class);
+		}
 	}
 }
