@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.4
+
+- Preserve scheduled forwarder job timestamps when the app bootstraps.
+
 ## 1.0.3
 
 - Register the Nextcloud bootstrap class so file events enqueue eligible uploads.

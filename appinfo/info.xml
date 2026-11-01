@@ -5,7 +5,7 @@
 	<name>Paperless Forwarder</name>
 	<summary>Forward files from a Nextcloud folder to Paperless-ngx</summary>
 	<description>Uploads settled files to Paperless-ngx and trashes confirmed duplicates.</description>
-	<version>1.0.3</version>
+	<version>1.0.4</version>
 	<licence>AGPL-3.0-or-later</licence>
 	<author mail="vincent@mahn.ke" homepage="https://by.vincent.mahn.ke/">Vincent Mahnke</author>
 	<namespace>PaperlessForwarder</namespace>
