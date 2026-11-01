@@ -45,7 +45,8 @@ class Handler(BaseHTTPRequestHandler):
             return self.reply(404, {"detail": "not found"})
         if not self.authorized():
             return
-        body = self.rfile.read(int(self.headers.get("Content-Length", "0")))
+        content_length = int(self.headers.get("Content-Length", "0"))
+        body = self.rfile.read(content_length)
         boundary = body.split(b"\r\n", 1)[0]
         content = body.split(b"\r\n\r\n", 1)[-1].rsplit(b"\r\n" + boundary, 1)[0]
         digest = hashlib.sha256(content).hexdigest()
@@ -63,7 +64,14 @@ class Handler(BaseHTTPRequestHandler):
                 "status": "SUCCESS",
                 "result_data": {"document_id": documents[digest]},
             }
-        uploads.append({"task_id": task_id, "status": tasks[task_id]["status"]})
+        uploads.append({
+            "task_id": task_id,
+            "status": tasks[task_id]["status"],
+            "content_length": content_length,
+            "body_size": len(body),
+            "size": len(content),
+            "sha256": digest,
+        })
         self.reply(200, task_id)
 
     def log_message(self, *args):
